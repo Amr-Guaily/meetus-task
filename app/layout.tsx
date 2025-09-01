@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${abeezee.variable} antialiased`}>{children}</body>
+      <body className={`${abeezee.variable} antialiased`}>
+        <main className="min-h-screen">{children}</main>
+      </body>
     </html>
   );
 }

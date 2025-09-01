@@ -15,7 +15,7 @@ export default function Home() {
         {/* Left side - Login Form */}
         <LoginForm />
 
-        {/* Right side - Logo (bigger section) */}
+        {/* Right side - Logo */}
         <div className="h-full flex-[1.5]"></div>
       </div>
     </div>
