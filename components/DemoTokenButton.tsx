@@ -1,5 +1,6 @@
 'use client';
 
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 export default function DemoTokenButton() {
@@ -24,7 +25,7 @@ export default function DemoTokenButton() {
       );
       const data = await res.json();
       if (data?.token) {
-        document.cookie = `token=${data.token}; path=/; Secure; SameSite=Strict;`;
+        Cookies.set('token', data.token);
         setSuccess(true);
       }
     } catch {

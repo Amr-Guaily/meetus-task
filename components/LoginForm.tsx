@@ -1,7 +1,7 @@
 'use client';
 
 import { loginAction } from '@/app/utils/api';
-import { Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -10,6 +10,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -65,22 +66,36 @@ export default function LoginForm() {
           <input
             id="password"
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full pl-12 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
+            className="w-full pl-12 pr-12 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
             placeholder="Password"
           />
+          <button
+            type="button"
+            tabIndex={-1}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] focus:outline-none"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
         </div>
         <button
           type="submit"
-          className="w-full bg-[#9414FF] text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full cursor-pointer bg-[#9414FF] text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#9414FF]"
           disabled={!isFormValid || loading}
         >
           {loading ? 'Signing In...' : 'Sign In'}
         </button>
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && (
+          <div className="flex items-center gap-2 bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded-lg">
+            <X />
+            <span>{error}</span>
+          </div>
+        )}
       </form>
       <p className="mt-8 text-center text-sm text-[#62626B]">
         Don't have an account?

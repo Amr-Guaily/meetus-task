@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 export async function loginAction(formData: FormData) {
   const email = formData.get('email');
   const password = formData.get('password');
-  const token = Cookies.get('token');
 
   const payload = {
     email,
@@ -18,7 +17,6 @@ export async function loginAction(formData: FormData) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...(token && { Authorization: `Bearer ${token}` }),
         },
         body: JSON.stringify(payload),
       }
