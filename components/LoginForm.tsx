@@ -1,7 +1,8 @@
 'use client';
 
 import { loginAction } from '@/app/utils/api';
-import { Eye, EyeOff, Lock, Mail, X } from 'lucide-react';
+import { Eye, EyeOff, X } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -49,7 +50,13 @@ export default function LoginForm() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="relative">
-          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] w-5 h-5" />
+          <Image
+            src="/assets/icons/sms.svg"
+            alt="Email"
+            width={24}
+            height={24}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A1A1E]"
+          />
           <input
             id="email"
             name="email"
@@ -57,12 +64,18 @@ export default function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full pl-12 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-[#9414FF] focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
+            className="w-full pl-13 pr-4 py-4 rounded-lg focus:ring-2 focus:ring-[#9414FF] focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
             placeholder="Email"
           />
         </div>
         <div className="relative">
-          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] w-5 h-5" />
+          <Image
+            src="/assets/icons/lock.svg"
+            alt="Email"
+            width={24}
+            height={24}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A1A1E]"
+          />{' '}
           <input
             id="password"
             name="password"
@@ -70,13 +83,13 @@ export default function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full pl-12 pr-12 py-3 rounded-lg focus:ring-2 focus:ring-[#9414FF] focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
+            className="w-full pl-13 pr-12 py-4 rounded-lg focus:ring-2 focus:ring-[#9414FF] focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
             placeholder="Password"
           />
           <button
             type="button"
             tabIndex={-1}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] focus:outline-none"
+            className="absolute cursor-pointer right-4 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] focus:outline-none"
             onClick={() => setShowPassword((prev) => !prev)}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
@@ -85,7 +98,7 @@ export default function LoginForm() {
         </div>
         <button
           type="submit"
-          className="w-full cursor-pointer bg-[#9414FF] text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#9414FF]"
+          className="w-full cursor-pointer bg-[#9414FF] text-white py-2.5 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-[#9414FF]"
           disabled={!isFormValid || loading}
         >
           {loading ? 'Signing In...' : 'Sign In'}
