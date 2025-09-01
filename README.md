@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meetus Task
 
-## Getting Started
+## Goals
 
-First, run the development server:
+Implement a login form in Next.js following the provided Figma design and back-end API.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- After login, users access a dashboard with a logout option.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Normal Scenario
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. User opens [http://localhost:3000](http://localhost:3000).
+2. System checks for saved authentication and token expiration.
+3. If not authenticated, displays login form:
+   - **Fields:**
+     - E-Mail (string)
+     - Password (string)
+   - **Actions:**
+     - Login button (disabled if fields are empty or email is invalid)
+4. User enters credentials and clicks Login:
+   - E-Mail: `dev.aert@gmail.com`
+   - Password: `helloworld`
+5. System calls login API:
+   - **URL:** `https://api-yeshtery.dev.meetusvr.com/v1/yeshtery/token`
+   - **Method:** POST
+   - **Headers:** `Content-Type: application/json`
+   - **Body:**
+     ```json
+     {
+       "email": "<E-Mail>",
+       "password": "<Password>",
+       "isEmployee": true
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+     	 "token": "...",
+     	 "refresh": "...",
+     	 ...
+     }
+     ```
+6. System stores the token in an HTTP Only Cookie.
+7. System calls user info API:
+   - **URL:** `https://api-yeshtery.dev.meetusvr.com/v1/user/info`
+   - **Method:** GET
+   - **Headers:**
+     - `Content-Type: application/json`
+     - `Authorization: Bearer <Saved Token Value>`
+   - **Body:**
+     ```json
+     {
+       "email": "<E-Mail>",
+       "password": "<Password>",
+       "isEmployee": true
+     }
+     ```
+   - **On success:** Stores user ID and name.
+   - **On failure:** Returns to login form.
+8. Dashboard displays:
+   - **Data:**
+     - ID (from user info)
+     - Name (from user info)
+   - **Actions:**
+     - Logout button
+9. On logout, user is logged out and returned to login form.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Exceptional Scenarios
 
-## Learn More
+- Invalid email or empty password:
+  - Show validation errors.
+  - Clear errors on field change.
 
-To learn more about Next.js, take a look at the following resources:
+## Non-Goals
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- No need for JWT/Refresh token handling (401 handled by backend).
+- No need for dashboard design beyond a simple layout.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Evaluation Criteria
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Figma to HTML/CSS conversion
+- Next.js code organization
+- Proper authentication token saving and expiration handling
+- Git usage
+- Adherence to requirements
