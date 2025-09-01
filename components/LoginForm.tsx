@@ -55,13 +55,13 @@ export default function LoginForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#9414FF] text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-[#9414FF] cursor-pointer text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={!isFormValid}
         >
           Sign In
         </button>
       </form>
-      <p className="mt-6 text-center text-sm text-gray-600">
+      <p className="mt-8 text-center text-sm text-[#62626B]">
         Don't have an account?
         <a href="#" className="hover:underline hover:text-[#9414FF] ml-1">
           Sign up
