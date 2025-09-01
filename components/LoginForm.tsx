@@ -1,19 +1,41 @@
 'use client';
 
+import { loginAction } from '@/app/utils/api';
 import { Lock, Mail } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function LoginForm() {
+interface LoginFormProps {
+  token: string | undefined;
+}
+
+export default function LoginForm({ token }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isFormValid = email && password && isEmailValid;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { email, password });
+    setLoading(true);
+    setError('');
+
+    try {
+      const result = await loginAction(new FormData(e.currentTarget), token);
+      if (result?.success) {
+        router.push('/');
+      } else {
+        setError(result?.error || 'Login failed');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,6 +55,7 @@ export default function LoginForm() {
           <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] w-5 h-5" />
           <input
             id="email"
+            name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -45,6 +68,7 @@ export default function LoginForm() {
           <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#1A1A1E] w-5 h-5" />
           <input
             id="password"
+            name="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -55,17 +79,15 @@ export default function LoginForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#9414FF] cursor-pointer text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={!isFormValid}
+          className="w-full bg-[#9414FF] text-white py-2 px-4 rounded-lg hover:opacity-80 transition-colors font-normal disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={!isFormValid || loading}
         >
-          Sign In
+          {loading ? 'Signing In...' : 'Sign In'}
         </button>
+        {error && <p className="text-red-500 text-center">{error}</p>}
       </form>
       <p className="mt-8 text-center text-sm text-[#62626B]">
         Don't have an account?
-        <a href="#" className="hover:underline hover:text-[#9414FF] ml-1">
-          Sign up
-        </a>
       </p>
     </div>
   );

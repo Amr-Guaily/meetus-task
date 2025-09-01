@@ -1,15 +1,12 @@
-'use server';
-
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-
-export async function loginAction(prevState: any, formData: FormData) {
+export async function loginAction(formData: FormData, token?: string) {
   const email = formData.get('email');
   const password = formData.get('password');
 
-  const cookiesStore = await cookies();
-  const token = cookiesStore.get('token')?.value;
-
+  const payload = {
+    email,
+    password,
+    isEmployee: true,
+  };
   try {
     const res = await fetch(
       'https://api-yeshtery.dev.meetusvr.com/v1/yeshtery/token',
@@ -19,11 +16,7 @@ export async function loginAction(prevState: any, formData: FormData) {
           'Content-Type': 'application/json',
           ...(token && { Authorization: `Bearer ${token}` }),
         },
-        body: JSON.stringify({
-          email,
-          password,
-          isEmployee: true,
-        }),
+        body: JSON.stringify(payload),
       }
     );
 
@@ -31,9 +24,7 @@ export async function loginAction(prevState: any, formData: FormData) {
       return { success: false, error: 'Invalid credentials' };
     }
 
-    const data = await res.json();
-
-    redirect('/');
+    return { success: true };
   } catch (error) {
     return { success: false, error: 'Something went wrong. Please try again.' };
   }
