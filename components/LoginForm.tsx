@@ -24,7 +24,7 @@ export default function LoginForm() {
     try {
       const result = await loginAction(new FormData(e.currentTarget));
       if (result?.success) {
-        router.push('/');
+        router.replace('/');
       } else {
         setError(result?.error || 'Login failed');
       }
@@ -36,7 +36,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="mx-auto pl-22 py-6 max-w-md rounded-xl">
+    <div className="mx-auto lg:pl-12 xl:pl-22 py-6 max-w-md rounded-xl">
       <div className="text-center">
         <h2 className="text-5xl font-normal text-[#1A1A1E] whitespace-nowrap">
           Welcome Back
