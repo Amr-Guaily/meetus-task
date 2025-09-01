@@ -40,7 +40,7 @@ export default function LoginForm() {
     <div className="mx-auto lg:pl-12 xl:pl-22 py-6 max-w-md">
       <div className="text-center">
         <h2 className="text-4xl sm:text-5xl font-normal text-[#1A1A1E]">
-          Welcome Back
+          Welcome back
         </h2>
         <p className="text-sm sm:text-base text-[#62626B] my-6 max-w-3xl">
           Step into our shopping metaverse for an unforgettable shopping
