@@ -33,8 +33,10 @@ async function getUserInfo() {
     }
 
     const data = await res.json();
+
     return { success: true, user: data };
   } catch (error) {
+    console.error('Error fetching user info:', error);
     return {
       success: false,
       error: 'Something went wrong. Please try again.',
@@ -56,7 +58,7 @@ export default async function Home() {
         <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded-lg mb-4">
           {errorMsg}
         </div>
-        <Link href="/login" className="text-blue-600 underline">
+        <Link href="/login" className="text-[#9414FF] underline">
           Go to Login
         </Link>
       </div>
@@ -67,7 +69,7 @@ export default async function Home() {
 
   return (
     <div className="h-screen bg-[#E9ECF2] flex flex-col items-center justify-center">
-      <div className="bg-white rounded-xl shadow-lg p-8 min-w-[320px]">
+      <div className="bg-white rounded-xl shadow-lg p-8 min-w-[320px] text-slate-600">
         <h1 className="text-2xl font-bold mb-4">Welcome, {user.name}!</h1>
         <p className="mb-2">
           <strong>Email:</strong> {user.email}
