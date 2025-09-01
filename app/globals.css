@@ -25,6 +25,10 @@ body {
   font-family: var(--font-abeezee), Arial, Helvetica, sans-serif; /* Use ABeeZee variable */
 }
 
+* {
+  box-sizing: border-box;
+}
+
 button {
   outline: none;
   border: none;

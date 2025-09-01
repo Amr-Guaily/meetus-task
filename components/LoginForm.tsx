@@ -36,7 +36,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="mx-auto lg:pl-12 xl:pl-22 py-6 max-w-md rounded-xl">
+    <div className="mx-auto lg:pl-12 xl:pl-22 py-6 max-w-md">
       <div className="text-center">
         <h2 className="text-5xl font-normal text-[#1A1A1E] whitespace-nowrap">
           Welcome Back

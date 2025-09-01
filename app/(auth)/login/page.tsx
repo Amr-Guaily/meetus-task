@@ -3,7 +3,7 @@ import LoginForm from '@/components/LoginForm';
 export default function LoginPage() {
   return (
     <div className="h-screen bg-[#E9ECF2] flex items-center justify-center relative">
-      <div className="w-7xl mx-auto h-[90%] flex items-center justify-center bg-gray-50 border rounded-2xl border-white relative overflow-hidden bg-[url('/assets/smbg.png')] lg:bg-[url('/assets/bg.png')] bg-cover bg-center bg-no-repeat">
+      <div className="w-full max-w-7xl h-full md:h-[85%] flex items-center justify-center md:rounded-2xl md:mx-4 relative overflow-hidden bg-[url('/assets/smbg.png')] lg:bg-[url('/assets/bg.png')] bg-cover bg-center bg-no-repeat">
         {/* Left side - Login Form */}
         <LoginForm />
 
