@@ -46,12 +46,8 @@ export async function loginAction(formData: FormData) {
 export async function getUserInfoAction() {
   const token = Cookies.get('token');
 
-  if (!token) {
-    return { success: false, error: 'Unauthorized' };
-  }
-
   try {
-    const res = await fetch(`${API_BASE_URL}/yeshtery/user`, {
+    const res = await fetch(`${API_BASE_URL}/user/info`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
