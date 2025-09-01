@@ -1,11 +1,7 @@
 import DemoTokenButton from '@/components/DemoTokenButton';
 import LoginForm from '@/components/LoginForm';
-import { cookies } from 'next/dist/server/request/cookies';
 
-export default async function LoginPage() {
-  const cookiesStore = await cookies();
-  const token = cookiesStore.get('token')?.value;
-
+export default function LoginPage() {
   return (
     <div className="h-screen bg-[#E9ECF2] flex items-center justify-center relative">
       <DemoTokenButton />
@@ -20,7 +16,7 @@ export default async function LoginPage() {
         }}
       >
         {/* Left side - Login Form */}
-        <LoginForm token={token} />
+        <LoginForm />
 
         {/* Right side - Logo */}
         <div className="h-full flex-[1.5]"></div>

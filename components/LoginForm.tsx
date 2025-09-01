@@ -5,11 +5,7 @@ import { Lock, Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-interface LoginFormProps {
-  token: string | undefined;
-}
-
-export default function LoginForm({ token }: LoginFormProps) {
+export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,7 +21,7 @@ export default function LoginForm({ token }: LoginFormProps) {
     setError('');
 
     try {
-      const result = await loginAction(new FormData(e.currentTarget), token);
+      const result = await loginAction(new FormData(e.currentTarget));
       if (result?.success) {
         router.push('/');
       } else {
