@@ -24,11 +24,17 @@ async function getUserInfo() {
       cache: 'no-store',
     });
 
-    if (!res.ok) {
-      const data = await res.json();
+    if (res.status === 401 || res.status === 403) {
       return {
         success: false,
-        error: data?.message || 'Failed to fetch user info',
+        error: 'Unauthorized access',
+      };
+    }
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error: 'Failed to fetch user info',
       };
     }
 
@@ -46,8 +52,6 @@ async function getUserInfo() {
 
 export default async function Home() {
   const res = await getUserInfo();
-
-  console.log('User Info Response:', res);
 
   if (!res.success) {
     const errorMsg =
