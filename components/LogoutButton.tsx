@@ -1,6 +1,5 @@
 'use client';
 
-import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -8,10 +7,14 @@ export default function LogoutButton() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setLoading(true);
-    Cookies.remove('token', { path: '/' });
-    router.push('/login');
+    try {
+      await fetch('/api/logout', { method: 'POST' });
+    } catch (err) {
+      // TODO: Handle error
+    }
+    router.replace('/login');
   };
 
   return (
