@@ -1,8 +1,5 @@
+import { API_BASE_URL } from '@/app/constant/constant';
 import { NextResponse } from 'next/server';
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  'https://api-yeshtery.dev.meetusvr.com/v1';
 
 export async function POST(request: Request) {
   const body = await request.json();

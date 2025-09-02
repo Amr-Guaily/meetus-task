@@ -1,7 +1,6 @@
 import LogoutButton from '@/components/LogoutButton';
 import { cookies } from 'next/headers';
-
-const API_BASE_URL = 'https://api-yeshtery.dev.meetusvr.com/';
+import { API_BASE_URL } from './constant/constant';
 
 async function getUserInfo() {
   const cookiesStore = await cookies();
