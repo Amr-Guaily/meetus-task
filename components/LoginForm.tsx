@@ -1,6 +1,5 @@
 'use client';
 
-import { loginAction } from '@/app/utils/api';
 import { Eye, EyeOff, X } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -23,11 +22,19 @@ export default function LoginForm() {
     setError('');
 
     try {
-      const result = await loginAction(new FormData(e.currentTarget));
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const result = await res.json();
+      console.log('###', result);
       if (result?.success) {
-        router.replace('/');
+        router.push('/');
       } else {
-        setError(result?.error || 'Login failed');
+        setError(result?.error || 'Invalid credentials');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');

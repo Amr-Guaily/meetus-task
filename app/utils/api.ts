@@ -5,44 +5,6 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
   'https://api-yeshtery.dev.meetusvr.com/v1';
 
-export async function loginAction(formData: FormData) {
-  const email = formData.get('email');
-  const password = formData.get('password');
-
-  const payload = {
-    email,
-    password,
-    isEmployee: true,
-  };
-
-  try {
-    const res = await fetch(`${API_BASE_URL}/yeshtery/token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      return { success: false, error: 'Invalid credentials' };
-    }
-
-    const data = await res.json();
-
-    const newToken = data?.token;
-    Cookies.set('token', newToken, {
-      secure: true,
-      sameSite: 'Strict',
-      path: '/',
-    });
-
-    return { success: true };
-  } catch (error) {
-    return { success: false, error: 'Something went wrong. Please try again.' };
-  }
-}
-
 export async function getUserInfoAction() {
   const token = Cookies.get('token');
 
