@@ -1,10 +1,7 @@
 import LogoutButton from '@/components/LogoutButton';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  'https://api-yeshtery.dev.meetusvr.com/v1';
+const API_BASE_URL = 'https://api-yeshtery.dev.meetusvr.com/';
 
 async function getUserInfo() {
   const cookiesStore = await cookies();
@@ -34,7 +31,7 @@ async function getUserInfo() {
     if (!res.ok) {
       return {
         success: false,
-        error: 'Failed to fetch user info',
+        error: 'Failed to fetch user info, please try again later.',
       };
     }
 
@@ -59,12 +56,12 @@ export default async function Home() {
 
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-[#E9ECF2]">
-        <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded-lg mb-4">
-          {errorMsg}
+        <div className="max-w-md border border-gray-300 rounded-xl shadow-lg p-8 bg-white text-center">
+          <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded-lg mb-4">
+            {errorMsg}
+          </div>
+          <LogoutButton />
         </div>
-        <Link href="/login" className="text-[#9414FF] underline">
-          Go to Login
-        </Link>
       </div>
     );
   }
