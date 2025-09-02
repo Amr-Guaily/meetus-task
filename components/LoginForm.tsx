@@ -30,9 +30,8 @@ export default function LoginForm() {
         body: JSON.stringify({ email, password }),
       });
       const result = await res.json();
-      console.log('###', result);
       if (result?.success) {
-        router.push('/');
+        router.replace('/');
       } else {
         setError(result?.error || 'Invalid credentials');
       }
