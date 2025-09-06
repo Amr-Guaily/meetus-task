@@ -46,6 +46,16 @@ export default function LoginForm() {
     }
   };
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (error) setError('');
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (error) setError('');
+  };
+
   return (
     <div className="mx-auto lg:pl-12 xl:pl-22 py-6 max-w-md">
       <div className="text-center">
@@ -72,7 +82,7 @@ export default function LoginForm() {
             name="email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             required
             className="w-full pl-13 pr-4 py-4 rounded-lg focus:ring-2 focus:ring-[#9414FF] focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
             placeholder="Email"
@@ -85,13 +95,13 @@ export default function LoginForm() {
             width={24}
             height={24}
             className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A1A1E]"
-          />{' '}
+          />
           <input
             id="password"
             name="password"
             type={showPassword ? 'text' : 'password'}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
             className="w-full pl-13 pr-12 py-4 rounded-lg focus:ring-2 focus:ring-[#9414FF] focus:border-transparent outline-none text-[#62626B] placeholder-[#62626B] bg-[#fff]/40 border border-[#fff]"
             placeholder="Password"
