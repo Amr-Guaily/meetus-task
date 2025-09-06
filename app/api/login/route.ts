@@ -29,8 +29,9 @@ export async function POST(request: Request) {
 
     const data = await res.json();
     const token = data?.token;
+    const { id, name } = data?.userInfo;
 
-    const response = NextResponse.json({ success: true });
+    const response = NextResponse.json({ success: true, id, name });
     response.cookies.set('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

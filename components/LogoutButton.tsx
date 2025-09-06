@@ -1,5 +1,6 @@
 'use client';
 
+import { STORAGE_KEYS } from '@/app/constant/constant';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -11,6 +12,9 @@ export default function LogoutButton() {
     setLoading(true);
     try {
       await fetch('/api/logout', { method: 'POST' });
+
+      localStorage.removeItem(STORAGE_KEYS.user_id);
+      localStorage.removeItem(STORAGE_KEYS.user_name);
     } catch (err) {
       // TODO: Handle error
     }

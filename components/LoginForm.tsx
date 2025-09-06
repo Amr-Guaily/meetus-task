@@ -1,5 +1,6 @@
 'use client';
 
+import { STORAGE_KEYS } from '@/app/constant/constant';
 import { Eye, EyeOff, X } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -30,8 +31,11 @@ export default function LoginForm() {
         body: JSON.stringify({ email, password }),
       });
       const result = await res.json();
+
       if (result?.success) {
         router.replace('/');
+        localStorage.setItem(STORAGE_KEYS.user_id, result.id);
+        localStorage.setItem(STORAGE_KEYS.user_name, result.name);
       } else {
         setError(result?.error || 'Invalid credentials');
       }
